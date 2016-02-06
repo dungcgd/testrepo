@@ -1,0 +1,36 @@
+
+Finding a Realm File
+For Android
+How to view my Realm file in the Realm Browser?
+
+For iOS
+If your App is on Device
+Make sure that your device is connected and go to the devices window in the Xcode menu Window > Devices (⌘⇧2). There you will be able to choose your device and your app from a list of installed apps with debugging permissions.
+
+After selecting your app, go to the cog in the toolbar at the bottom of the table view and select “Download Container…“. There you will be able to pull the file from the documents location to your Mac. It will be saved as an xcappdata bundle.
+
+When you open the local path in Finder, where you saved it, you can tap into that by selecting “Show Package Contents” in the context menu of the finder, when you select the file. A new finder window will open, where you find your Realm inside in the following path (e.g.): AppData/Documents/default.realm (The directory '/private/var/mobile' is the path, which is used by iOS on the device filesystem.
+
+If your App is on the Simulator
+Go to your user’s directory:
+
+/Users/<username>/Library/Developer/CoreSimulator/Devices/<simulator-uuid>/data/Containers/Data/Application/<application-uuid>/Documents/default.realm
+
+Probably the easiest way to get the current path of the default realm is to pause the simulator and enter the following into the LLDB console:
+
+Objective-C:(lldb) po [RLMRealm defaultRealmPath]
+
+Swift using the Objective-C Framework:(lldb) po RLMRealm.defaultRealmPath()
+
+Swift using RealmSwift:(lldb) po Realm.defaultPath
+
+Or if you have RLMRealm instance at hand, you can use: (lldb) po myRealm.path
+
+Then just copy this path, open your terminal, and type open [Pasted path here]
+
+NOTE: Some paths have a space in them so be sure to use "\" before the space to escape it
+
+Helper Tool SimPholders
+This is probably the fastest way to find the file of an app in the simulator. Install SimPholders. This will allow you to access your app’s documents directory directly from your menu bar.
+
+Note Some people have mentioned that SimPholders has taken them to the wrong simulator app folder, if that's the case for you, print out your realm path by following the steps above, printing out your realm.path
